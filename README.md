@@ -13,8 +13,8 @@ At the moment (09-09-2013) Doom 3 BFG fonts created with this tool are mostly ok
 Decomposing Doom 3 fonts is still an experimental feature.
 
 Usage:
-    BFGFontTool create-bfg --help
-    BFGFontTool decompose-d3 --help
+	BFGFontTool create-bfg --help
+	BFGFontTool decompose-d3 --help
 	
 	BFGFontTool create-bfg options...
 		converts AngelCode BMFont's .fnt plain-text font descriptor into Doom 3 BFG Edition .dat font file
@@ -32,7 +32,7 @@ Usage:
 		  --lang, --language,    		comma separated list of The Dark Mod's languages to use during font's conversion (default: all except russian)
 										available langs: czech,danish,dutch,english,french,german,hungarian,italian,polish,portuguese,slovak,spanish,russian
 		  --remap, --remapdir[=VALUE]	directory in which The Dark Mod's remap tables are (like: polish.map)
-							   
+
 BFGFontTool requires ImageMagick to decompose Doom 3 fonts.
 As of this writing (09-09-2013) it uses Magick.NET-6.8.6.801-Q16-x64-net40-client and therefore you need to have corresponding
 ImageMagick package installed (ImageMagick-6.8.6-8-Q16-x86-dll.exe; hmmm... now I think about it shouldn't I install the x64 version?).
