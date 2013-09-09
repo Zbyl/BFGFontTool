@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BFGFontTool", "BFGFontTool.csproj", "{4FD7E4BF-D801-44DD-A104-01F9301D4029}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4FD7E4BF-D801-44DD-A104-01F9301D4029}.Debug|x64.ActiveCfg = Debug|x64
+		{4FD7E4BF-D801-44DD-A104-01F9301D4029}.Debug|x64.Build.0 = Debug|x64
+		{4FD7E4BF-D801-44DD-A104-01F9301D4029}.Release|x64.ActiveCfg = Release|x64
+		{4FD7E4BF-D801-44DD-A104-01F9301D4029}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
