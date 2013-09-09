@@ -4,6 +4,13 @@ BFGFontTool
 Zbyl (zbychs@gmail.com)
 
 Tool for manipulating Doom 3 and Doom 3 BFG Edition fonts.
+If you want to create fonts for Doom 3 BFG Edition or Rage you'll probably be better off with id Software's idFont tool from Rage.
+
+This program is meant to help me port Doom 3 BFG font code to The Dark Mod.
+It works with cooperation with AngelCode's BMFont (http://www.angelcode.com/products/bmfont/).
+
+At the moment (09-09-2013) Doom 3 BFG fonts created with this tool are mostly ok, but not 100% ok.
+Decomposing Doom 3 fonts is still an experimental feature.
 
 Usage:
     BFGFontTool create-bfg --help
