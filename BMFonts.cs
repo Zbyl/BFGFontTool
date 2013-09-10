@@ -73,6 +73,8 @@ namespace BFGFontTool
         public List<BMGlyph> glyphs = new List<BMGlyph>();
         public List<BMPage> pages = new List<BMPage>();
 
+        // information about how the font was generated
+        // see http://www.angelcode.com/products/bmfont/doc/file_format.html
         public string faceName;
         public int size;        // font size in points
         public bool bold;
@@ -81,18 +83,18 @@ namespace BFGFontTool
         public bool unicode;    // true if unicode (charset is empty then)
         public int heightStretchPercent;
         public bool fontSmoothing;
-        public bool antiAliased;
+        public int antiAliasLevel;
         public int paddingT;
         public int paddingR;
         public int paddingB;
         public int paddingL;
-        public int spacingL;
-        public int spacingT;
+        public int spacingHoriz;
+        public int spacingVert;
         public int outlineThickness;
 
         public bool LoadInfo(string line)
         {
-            string pattern = @"info\s+face=""([^""]*)""\s+size=(\d+)\s+bold=(\d)\s+italic=(\d)\s+charset=""([^""]*)""\s+unicode=(\d)\s+stretchH=(\d+)\s+smooth=(\d)\s+aa=(\d)\s+padding=(\d+),(\d+),(\d+),(\d+)\s+spacing=(\d+),(\d+)\s+outline=(\d+)";
+            string pattern = @"info\s+face=""([^""]*)""\s+size=([-+0-9]+)\s+bold=(\d)\s+italic=(\d)\s+charset=""([^""]*)""\s+unicode=(\d)\s+stretchH=(\d+)\s+smooth=(\d)\s+aa=(\d)\s+padding=(\d+),(\d+),(\d+),(\d+)\s+spacing=(\d+),(\d+)\s+outline=(\d+)";
             var regex = new Regex(pattern);
             var match = regex.Match(line);
             if (!match.Success)
@@ -106,18 +108,19 @@ namespace BFGFontTool
             unicode = int.Parse(match.Groups[6].Value) != 0;
             heightStretchPercent = int.Parse(match.Groups[7].Value);
             fontSmoothing = int.Parse(match.Groups[8].Value) != 0;
-            antiAliased = int.Parse(match.Groups[9].Value) != 0;
+            antiAliasLevel = int.Parse(match.Groups[9].Value);
             paddingT = int.Parse(match.Groups[10].Value);
             paddingR = int.Parse(match.Groups[11].Value);
             paddingB = int.Parse(match.Groups[12].Value);
             paddingL = int.Parse(match.Groups[13].Value);
-            spacingL = int.Parse(match.Groups[14].Value);
-            spacingT = int.Parse(match.Groups[15].Value);
+            spacingHoriz = int.Parse(match.Groups[14].Value);
+            spacingVert = int.Parse(match.Groups[15].Value);
             outlineThickness = int.Parse(match.Groups[16].Value);
 
             return true;
         }
 
+        // information about the generated font
         public int lineHeight;  // line height
         public int fontBase;    // dist from top to baseline
         public int scaleW;      // width of the picture

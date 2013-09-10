@@ -50,8 +50,8 @@ namespace BFGFontTool
                          select g;
 
             short pointSize = 48; // must be 48!
-            short ascender = 0;
-            short descender = 0;
+            short ascender = (short)font.fontBase;
+            short descender = (short)(font.fontBase - font.lineHeight);
             bw.WriteBig(pointSize);
             bw.WriteBig(ascender);
             bw.WriteBig(descender);
@@ -59,8 +59,13 @@ namespace BFGFontTool
             short numGlyphs = (short)glyphs.Count();
             bw.WriteBig(numGlyphs);
 
+            int lowestPoint = 0;
             foreach (var glyph in glyphs)
             {
+                int lowestGlyph = glyph.yoffset + glyph.height;
+                if (lowestGlyph > lowestPoint)
+                    lowestPoint = lowestGlyph;
+
                 bw.Write((byte)glyph.width);
                 bw.Write((byte)glyph.height);
                 bw.Write((byte)(font.fontBase - glyph.yoffset));
@@ -70,6 +75,12 @@ namespace BFGFontTool
                 bw.Write((byte)padding);
                 bw.Write((short)glyph.x);
                 bw.Write((short)glyph.y);
+            }
+
+            if (lowestPoint != font.lineHeight)
+            {
+                Console.WriteLine("WARNING: Line height ({0}) is not what I thought it would be ({1}).", font.lineHeight, lowestPoint);
+                Console.WriteLine("         Descender ({0}) might be wrong: maybe it should be {1}.", descender, font.fontBase - lowestPoint);
             }
 
             foreach (var glyph in glyphs)
