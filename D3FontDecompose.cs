@@ -133,14 +133,19 @@ namespace BFGFontTool
             // baseline position in pixels from top edges of the image
             int baseline = glyph.height - glyph.top; // maybe... maybe it's glyph.imageHeight - glyph.top... and maybe it's something else...
 
+            Debug.Assert(image.Width == 256);
+            Debug.Assert(image.Height == 256);
             icon.xoffset = 0;
-            icon.yoffset = font.maxHeight - baseline;
-            int xstart = (int)(glyph.s * image.Width) + glyph.pitch; // this "+ glyph.pitch" is a guess
+            icon.yoffset = font.maxHeight - glyph.top - glyph.bottom; // -baseline;
+            int xstart = (int)(glyph.s * image.Width); // +glyph.pitch; // this "+ glyph.pitch" is a guess
             int ystart = (int)(glyph.t * image.Height);
             int xend = (int)(glyph.s2 * image.Width);
             int yend = (int)(glyph.t2 * image.Height);
             int glyphWidth = xend - xstart;
             int glyphHeight = yend - ystart;
+            Debug.Assert(glyph.imageWidth == glyphWidth);
+            Debug.Assert(glyph.imageHeight == glyphHeight);
+            xstart += glyph.pitch; // this "+ glyph.pitch" is a guess
 
             // this damn ImageMagick can't create zero size images!
             if (zeroSizeImage == null)

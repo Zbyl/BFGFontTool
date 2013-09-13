@@ -19,9 +19,12 @@ namespace BFGFontTool
             if (bfgFontOutputFileName != null)
                 outFileName = bfgFontOutputFileName;
 
+            string outputDirectory = Path.GetDirectoryName(outFileName);
+
             BMFont font = new BMFont();
             font.Load(bmFontInputFileName);
             font.SaveBFGFont(outFileName);
+            font.SaveD3Fonts(outputDirectory);
         }
 
         /// <summary>
