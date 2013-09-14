@@ -34,6 +34,8 @@ namespace BFGFontTool
             bmFontTextBox.Text = Program.programOptions.createBFGOptions.bmFontInputFileName;
             bfgFontTextBox.Text = Program.programOptions.createBFGOptions.bfgFontOutputFileName;
 
+            generateFakeD3DatsCheckBox.Checked = Program.programOptions.createBFGOptions.generateFakeD3Dats;
+
             doom3FontFileTextBox.Text = Program.programOptions.decomposeD3Options.d3FontInputFileName;
             dirWithFontTexturesTextBox.Text = Program.programOptions.decomposeD3Options.dirWithFontTextures;
             bmcfgOutputFileTextBox.Text = Program.programOptions.decomposeD3Options.bmConfigFile;
@@ -252,6 +254,11 @@ namespace BFGFontTool
         private void replaceIconsCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             Program.programOptions.decomposeD3Options.bmConfigAppend = !replaceIconsCheckBox.Checked;
+        }
+
+        private void generateFakeD3DatsCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Program.programOptions.createBFGOptions.generateFakeD3Dats = generateFakeD3DatsCheckBox.Checked;
         }
     }
 }

@@ -16,12 +16,14 @@ namespace BFGFontTool
     {
         public static void createBFG(CreateBFGOptions options)
         {
-            string outputDirectory = Path.GetDirectoryName(options.bfgFontOutputFileName);
-
             BMFont font = new BMFont();
             font.Load(options.bmFontInputFileName);
             font.SaveBFGFont(options.bfgFontOutputFileName);
-            //font.SaveD3Fonts(outputDirectory);
+            if (options.generateFakeD3Dats)
+            {
+                string outputDirectory = Path.GetDirectoryName(options.bfgFontOutputFileName);
+                font.SaveFakeD3Fonts(outputDirectory);
+            }
         }
 
         /// <summary>
@@ -78,8 +80,9 @@ namespace BFGFontTool
 
         public class CreateBFGOptions
         {
-            public string bmFontInputFileName = null;
-            public string bfgFontOutputFileName = null;
+            public string bmFontInputFileName;
+            public string bfgFontOutputFileName;
+            public bool generateFakeD3Dats;
 
             public void Validate()
             {
@@ -121,6 +124,8 @@ namespace BFGFontTool
                         v => bmFontInputFileName = v },
                     { "bfg|bfgfont=",  "file name of the output BFG font (default: bfg=<FontName>.dat)",
                         (string v) => bfgFontOutputFileName = v },
+                    { "fake",  "generate fake Doom 3 .dat files that will allow loading the font in Doom 3 BFG (default: false)",
+                        (string v) => generateFakeD3Dats = v != null },
                 };
             }
         }

@@ -68,6 +68,7 @@
             this.glyphImageDirectoryOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.bmcfgOutputSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.replaceIconsCheckBox = new System.Windows.Forms.CheckBox();
+            this.generateFakeD3DatsCheckBox = new System.Windows.Forms.CheckBox();
             this.programModeTabControl.SuspendLayout();
             this.createBFGFontTabPage.SuspendLayout();
             this.decomposeD3FontTabPage.SuspendLayout();
@@ -99,6 +100,7 @@
             // 
             // createBFGFontTabPage
             // 
+            this.createBFGFontTabPage.Controls.Add(this.generateFakeD3DatsCheckBox);
             this.createBFGFontTabPage.Controls.Add(this.createBfgFontHelpButton);
             this.createBFGFontTabPage.Controls.Add(this.bfgFontOutputFileLabel);
             this.createBFGFontTabPage.Controls.Add(this.bfgFontBrowseButton);
@@ -501,6 +503,17 @@
             this.replaceIconsCheckBox.UseVisualStyleBackColor = true;
             this.replaceIconsCheckBox.CheckedChanged += new System.EventHandler(this.replaceIconsCheckBox_CheckedChanged);
             // 
+            // generateFakeD3DatsCheckBox
+            // 
+            this.generateFakeD3DatsCheckBox.AutoSize = true;
+            this.generateFakeD3DatsCheckBox.Location = new System.Drawing.Point(113, 61);
+            this.generateFakeD3DatsCheckBox.Name = "generateFakeD3DatsCheckBox";
+            this.generateFakeD3DatsCheckBox.Size = new System.Drawing.Size(177, 17);
+            this.generateFakeD3DatsCheckBox.TabIndex = 8;
+            this.generateFakeD3DatsCheckBox.Text = "Generate Doom 3 .dat\'s for BFG";
+            this.generateFakeD3DatsCheckBox.UseVisualStyleBackColor = true;
+            this.generateFakeD3DatsCheckBox.CheckedChanged += new System.EventHandler(this.generateFakeD3DatsCheckBox_CheckedChanged);
+            // 
             // BFGFontTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -565,6 +578,7 @@
         private System.Windows.Forms.OpenFileDialog glyphImageDirectoryOpenFileDialog;
         private System.Windows.Forms.SaveFileDialog bmcfgOutputSaveFileDialog;
         private System.Windows.Forms.CheckBox replaceIconsCheckBox;
+        private System.Windows.Forms.CheckBox generateFakeD3DatsCheckBox;
     }
 }
 

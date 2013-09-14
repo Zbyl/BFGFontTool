@@ -130,7 +130,7 @@ namespace BFGFontTool
         public int maxTop;
         public int maxBottom;
 
-        public void Load(BMFont font, float glyphScale = 1.0f)
+        public void Load(BMFont font, bool hackForBFG, float hackScaleForBFG = 1.0f)
         {
             Debug.Assert(font.pages.Count == 1);
             BMPage page = font.pages[0];
@@ -149,7 +149,7 @@ namespace BFGFontTool
                 BMGlyph bmglyph = dict.ContainsKey(i) ? dict[i] : bmglyphs.First();
 
                 D3Glyph glyph = new D3Glyph();
-                glyph.Load(font, bmglyph, true, glyphScale);
+                glyph.Load(font, bmglyph, hackForBFG, hackScaleForBFG);
                 name = font.faceName;
 
                 if (maxHeight < glyph.height)
@@ -164,7 +164,7 @@ namespace BFGFontTool
                 glyphs[i] = glyph;
             }
 
-            this.glyphScale = glyphScale;
+            this.glyphScale = hackScaleForBFG;
         }
 
         public void Load(string fileName)
@@ -228,21 +228,21 @@ namespace BFGFontTool
 
     static class B3Fonts
     {
-        public static void SaveD3Font(this BMFont font, string fileName, float glyphScale = 1.0f)
+        public static void SaveFakeD3Font(this BMFont font, string fileName, float glyphScale = 1.0f)
         {
             D3Font d3font = new D3Font();
-            d3font.Load(font, glyphScale);
+            d3font.Load(font, true, glyphScale);
             d3font.Save(fileName);
         }
 
-        public static void SaveD3Fonts(this BMFont font, string outputDirectory)
+        public static void SaveFakeD3Fonts(this BMFont font, string outputDirectory)
         {
             string fileNameSmall = Path.Combine(outputDirectory, "fontimage_12.dat");
             string fileNameMedium = Path.Combine(outputDirectory, "fontimage_24.dat");
             string fileNameBig = Path.Combine(outputDirectory, "fontimage_48.dat");
-            font.SaveD3Font(fileNameSmall, 0.25f);
-            font.SaveD3Font(fileNameMedium, 0.5f);
-            font.SaveD3Font(fileNameBig, 1.0f);
+            font.SaveFakeD3Font(fileNameSmall, 0.25f);
+            font.SaveFakeD3Font(fileNameMedium, 0.5f);
+            font.SaveFakeD3Font(fileNameBig, 1.0f);
         }
     }
 }
