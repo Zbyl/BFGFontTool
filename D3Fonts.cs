@@ -122,9 +122,13 @@ namespace BFGFontTool
         public const int GLYPHS_PER_FONT = 256;
         public D3Glyph[] glyphs = new D3Glyph[GLYPHS_PER_FONT];
         public float glyphScale;
+
+        // these are not stored - just helper values
         public string name;
         public int maxHeight;
         public int maxWidth;
+        public int maxTop;
+        public int maxBottom;
 
         public void Load(BMFont font, float glyphScale = 1.0f)
         {
@@ -138,6 +142,8 @@ namespace BFGFontTool
 
             maxHeight = 0;
             maxWidth = 0;
+            maxTop = 0;
+            maxBottom = 0;
             for (int i = 0; i < GLYPHS_PER_FONT; ++i)
             {
                 BMGlyph bmglyph = dict.ContainsKey(i) ? dict[i] : bmglyphs.First();
@@ -150,6 +156,10 @@ namespace BFGFontTool
                     maxHeight = glyph.height;
                 if (maxWidth < glyph.xSkip)
                     maxWidth = glyph.xSkip;
+                if (maxTop < glyph.top)
+                    maxTop = glyph.top;
+                if (maxBottom < glyph.bottom)
+                    maxBottom = glyph.bottom;
 
                 glyphs[i] = glyph;
             }
@@ -166,6 +176,8 @@ namespace BFGFontTool
 
             maxHeight = 0;
             maxWidth = 0;
+            maxTop = 0;
+            maxBottom = 0;
             for (int i = 0; i < GLYPHS_PER_FONT; i++)
             {
                 D3Glyph glyph = new D3Glyph();
@@ -176,6 +188,10 @@ namespace BFGFontTool
                     maxHeight = glyph.height;
                 if (maxWidth < glyph.xSkip)
                     maxWidth = glyph.xSkip;
+                if (maxTop < glyph.top)
+                    maxTop = glyph.top;
+                if (maxBottom < glyph.bottom)
+                    maxBottom = glyph.bottom;
             }
 
             glyphScale = br.ReadSingle();

@@ -23,7 +23,6 @@ namespace BFGFontTool
         D3Font font;
         string dirWithFontTextures;
         string imageOutputDir;
-        string bmConfigFile;
         string[] langs;
         string dirWithLangMaps;
         string zeroSizeImage;
@@ -45,20 +44,19 @@ namespace BFGFontTool
         /// <param name="zeroSizeImage">Optional: image that have 0x0 size.</param>
         /// <param name="bmConfigFile">File to output BMFont's external image configuration to.</param>
         /// <param name="imageOutputDir">Directory into which output character images.</param>
-        public static void Decompose(D3Font font, string dirWithFontTextures, string[] langs, string dirWithLangMaps, string zeroSizeImage, string bmConfigFile, string imageOutputDir)
+        public static IList<string> Decompose(D3Font font, string dirWithFontTextures, string[] langs, string dirWithLangMaps, string zeroSizeImage, string imageOutputDir)
         {
-            var fontDecomposer = new D3FontDecompose(font, dirWithFontTextures, langs, dirWithLangMaps, zeroSizeImage, bmConfigFile, imageOutputDir);
-            fontDecomposer.Decompose();
+            var fontDecomposer = new D3FontDecompose(font, dirWithFontTextures, langs, dirWithLangMaps, zeroSizeImage, imageOutputDir);
+            return fontDecomposer.Decompose();
         }
 
-        private D3FontDecompose(D3Font font, string dirWithFontTextures, string[] langs, string dirWithLangMaps, string zeroSizeImage, string bmConfigFile, string imageOutputDir)
+        private D3FontDecompose(D3Font font, string dirWithFontTextures, string[] langs, string dirWithLangMaps, string zeroSizeImage, string imageOutputDir)
         {
             this.font = font;
             this.dirWithFontTextures = dirWithFontTextures;
             this.langs = langs;
             this.dirWithLangMaps = dirWithLangMaps;
             this.imageOutputDir = imageOutputDir;
-            this.bmConfigFile = bmConfigFile;
             this.zeroSizeImage = zeroSizeImage;
 
             Directory.CreateDirectory(imageOutputDir);
@@ -70,7 +68,7 @@ namespace BFGFontTool
             }
         }
 
-        private void Decompose()
+        private IList<string> Decompose()
         {
             var infosDict = new Dictionary<int, IList<string>>();
             for (int i = 0; i < D3Font.GLYPHS_PER_FONT; i++)
@@ -97,16 +95,12 @@ namespace BFGFontTool
                 Decompose(glyph, utf32Char);
             }
 
-            if (!File.Exists(bmConfigFile))
-            {
-                File.Create(bmConfigFile).Dispose();
-            }
-            IList<string> bmConfig = File.ReadAllLines(bmConfigFile).ToList();
+            IList<string> bmConfig = new List<string>();
             foreach (var kv in iconInfos)
             {
                 bmConfig.Add(kv.Value.ToString());
             }
-            File.WriteAllLines(bmConfigFile, bmConfig);
+            return bmConfig;
         }
 
         private void Decompose(D3Glyph glyph, int utf32Char)
@@ -136,11 +130,12 @@ namespace BFGFontTool
             Debug.Assert(image.Width == 256);
             Debug.Assert(image.Height == 256);
             icon.xoffset = 0;
-            icon.yoffset = font.maxHeight - glyph.top - glyph.bottom; // -baseline;
-            int xstart = (int)(glyph.s * image.Width); // +glyph.pitch; // this "+ glyph.pitch" is a guess
-            int ystart = (int)(glyph.t * image.Height);
-            int xend = (int)(glyph.s2 * image.Width);
-            int yend = (int)(glyph.t2 * image.Height);
+            //icon.yoffset = font.maxHeight - glyph.top - glyph.bottom; // -baseline;
+            icon.yoffset = font.maxTop - glyph.top;
+            int xstart = (int)(glyph.s * image.Width + 0.0f); // +glyph.pitch; // this "+ glyph.pitch" is a guess
+            int ystart = (int)(glyph.t * image.Height + 0.0f);
+            int xend = (int)(glyph.s2 * image.Width - 0.0f);
+            int yend = (int)(glyph.t2 * image.Height - 0.0f);
             int glyphWidth = xend - xstart;
             int glyphHeight = yend - ystart;
             Debug.Assert(glyph.imageWidth == glyphWidth);

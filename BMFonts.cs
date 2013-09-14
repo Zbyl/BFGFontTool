@@ -12,7 +12,7 @@ namespace BFGFontTool
     /// Only loading plain text font descriptors is supported.
     /// Those classes probably would be cleaner if we used XML font descriptor instead of the plain text one...
     /// </summary>
-    class BMGlyph
+    public class BMGlyph
     {
         public int id;          // char utf32
         public int x;           // x position in image (in pixels)
@@ -48,7 +48,7 @@ namespace BFGFontTool
         }           
     }
 
-    class BMPage
+    public class BMPage
     {
         public int id;
         public string file;
@@ -68,7 +68,7 @@ namespace BFGFontTool
         }
     }
 
-    class BMFont
+    public class BMFont
     {
         public List<BMGlyph> glyphs = new List<BMGlyph>();
         public List<BMPage> pages = new List<BMPage>();
@@ -203,7 +203,7 @@ namespace BFGFontTool
     ///   3. Then use BMFont to generate the font using this configuration,
     ///   4. Then convert resulting .fnt into BFG .dat font.
     /// </summary>
-    class BMIconInfo
+    public class BMIconInfo
     {
         public string imageFile;
         public int charId; // UTF32
